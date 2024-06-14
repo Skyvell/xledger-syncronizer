@@ -36,6 +36,7 @@ GET_TIMESHEETS_FROM_DBIDS = gql("""
                     workingHours
                     assignmentDate
                 }
+                cursor
             }
             pageInfo {
                 hasNextPage
@@ -76,6 +77,7 @@ GET_TIMESHEETS_AFTER_CURSOR = gql("""
                     workingHours
                     assignmentDate
                 }
+                cursor
             }
             pageInfo {
                 hasNextPage
