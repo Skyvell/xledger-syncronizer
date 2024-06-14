@@ -1,12 +1,13 @@
 from shared.gql_client import GraphQLClient, PaginationQueryResult
+from shared.utils.data_transformation import add_key_value_to_dicts
 from typing import Dict, Any, Set, List, Optional
 import logging
 
 
 class ItemsResult:
-    def __init__(self, items: list[Dict], last_deltas_cursor: str = None) -> None:
+    def __init__(self, items: list[Dict], cursor: str) -> None:
         self.items = items
-        self.last_deltas_cursor = last_deltas_cursor
+        self.cursor = cursor
 
     def has_items(self) -> bool:
         return bool(self.items)
@@ -14,15 +15,11 @@ class ItemsResult:
     def get_items(self) -> List[Dict]:
         return self.items
     
-    def get_last_deltas_cursor(self) -> str:
-        return self.last_deltas_cursor
-    
     def get_last_item_cursor(self) -> str:
-        return self.items[-1]['cursor'] if self.items else None
+        return self.cursor
     
-    def add_key_to_all_items(self, key: str, value: Any) -> None:
-        for item in self.items:
-            item[key] = value
+    def add_key_value_to_items(self, key: str, value: Any) -> None:
+        add_key_value_to_dicts(self.items, key, value)
 
 
 class ItemFetcher:
@@ -33,15 +30,17 @@ class ItemFetcher:
 
     def fetch_items_by_ids(self, db_ids: List[str], first: int = 10000) -> ItemsResult:
         if not db_ids:
-            return ItemsResult([])
+            return ItemsResult([], None)
         
         variables = {"first": first, "dbIdList": db_ids}
-        query_resut = self._execute_paginated_query(self.query_by_dbids, variables)
-        return ItemsResult(query_resut.get_nodes(), query_resut.get_last_cursor())
+        query_result = self._execute_paginated_query(self.query_by_dbids, variables)
 
-    def fetch_all_items_after_cursor(self, after: Optional[str], first: int = 10000) -> PaginationQueryResult:
+        return ItemsResult(query_result.get_nodes(), query_result.get_last_cursor())
+
+    def fetch_all_items_after_cursor(self, after: str = None, first: int = 10000) -> ItemsResult:
         variables = {"first": first, "after": after}
-        return self._execute_paginated_query(self.query_by_cursor, variables)
+        query_result = self._execute_paginated_query(self.query_by_cursor, variables)
+        return ItemsResult(query_result.get_nodes(), query_result.get_last_cursor())
 
     def _execute_paginated_query(self, query: str, variables: Dict[str, Any]) -> PaginationQueryResult:
         try:
