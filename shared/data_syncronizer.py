@@ -7,16 +7,16 @@ from shared.configuration_manager import ConfigurationManager, SynchronizerState
 from shared.utils.data_transformation import add_key_value_to_dicts, flatten_list_of_dicts
 from shared.utils.files import convert_dicts_to_parquet
 from shared.utils.time import get_current_time_for_filename
-
-
-class NoResultsException(Exception):
-    pass
+import json
 
 
 class ChangedItemsResult:
     def __init__(self, items: List[Dict[str, Any]], last_deltas_cursor: str):
         self.items = items
         self.last_deltas_cursor = last_deltas_cursor
+
+    def has_changed_items(self) -> bool:
+        return bool(self.items)
 
 
 # This one will also have a data lake writer class.
@@ -34,18 +34,75 @@ class DataSynchronizer:
         self.data_lake_writer = data_lake_writer
 
     def syncronize(self) -> None:
-        items, last_delta = self._synchronize_from_deltas()
-        if not items:
-            logging.info(f"No changes found for {self.name}.")
-            return
-    
-        # Write items to data lake.
-        flattened_items = flatten_list_of_dicts(items)
-        parquet = convert_dicts_to_parquet(flattened_items)
-        self.data_lake_writer.write_data("filesystem", self.name, f"{get_current_time_for_filename()}-{self.name}.parquet", parquet)
+        if not self.state_manager.initial_sync_complete:
 
-        # Update state.
-        self.state_manager.deltas_cursor = last_delta
+            # Get the last delta.
+            deltas = self.delta_fetcher.fetch_deltas({"last": 1})
+
+            # Fetch all items.
+            items = self.item_fetcher.fetch_all_items_after_cursor()
+            if not items.has_items():
+                logging.info(f"No items found for {self.name}.")
+                return
+            
+            # Transform items.
+            items.add_key_value_to_items("mutationType", "ADDED")
+            items_transformed = convert_dicts_to_parquet(flatten_list_of_dicts(items.get_items()))
+            
+            # Write items to data lake.
+            self.data_lake_writer.write_data("filesystem", self.name, f"{get_current_time_for_filename()}-{self.name}.parquet", items_transformed)
+
+            # Update state.
+            self.state_manager.initial_sync_cursor = items.get_last_item_cursor()
+            self.state_manager.initial_sync_complete = True
+            self.state_manager.deltas_cursor = deltas.last_cursor
+
+        else:
+
+            deltas = self.delta_fetcher.fetch_deltas({"first": 10000, "after": self.state_manager.deltas_cursor})
+            if not deltas.has_changes():
+                logging.info(f"No changes found for {self.name}.")
+                return
+            
+            # Get all changed items based on the dbids fetc hed with the delta_fetcher.
+            all_changed_items = []
+            if deltas.has_additions():
+                additions = self.item_fetcher.fetch_items_by_ids(deltas.get_additions())
+                additions.add_key_value_to_items("mutationType", "ADDED")
+                all_changed_items.extend(additions.get_items())
+
+            if deltas.has_updates():
+                updates = self.item_fetcher.fetch_items_by_ids(deltas.get_updates())
+                updates.add_key_value_to_items("mutationType", "UPDATED")
+                all_changed_items.extend(updates.get_items())
+
+            if deltas.has_deletions():
+                deletions = [{"dbId": dbId, "mutationType": "DELETED"} for dbId in deltas.get_deletions()]
+                all_changed_items.extend(deletions)
+
+            # Transform items.
+            parquet = convert_dicts_to_parquet(flatten_list_of_dicts(all_changed_items))
+
+            # Write items to data lake.
+            self.data_lake_writer.write_data("filesystem", self.name, f"{get_current_time_for_filename()}-{self.name}.parquet", parquet)
+
+            # Update state.
+            self.state_manager.deltas_cursor = deltas.last_cursor
+            
+            # Get current time.
+            # Get all items less than current time.
+            # Get all changed items after current time.
+            # Combine all items.
+            # Write items to data lake.
+            # Update state.
+    def _get_all_items(self) -> None:
+        items_result = self.item_fetcher.fetch_all_items_after_cursor()
+
+    def _get_changed_items(self) -> ChangedItemsResult:
+        deltas = self.delta_fetcher.fetch_deltas({"first": 10000, "after": self.state_manager.deltas_cursor})
+        if not deltas.has_changes():
+            return 
+        raise NotImplementedError("Not implemented yet.")
 
     def _synchronize_from_deltas(self) -> tuple[List[Dict[str, Any]], str]:
         deltas = self.delta_fetcher.fetch_deltas({"first": 10000, "after": self.state_manager.deltas_cursor})
@@ -70,6 +127,11 @@ class DataSynchronizer:
             all_changed_items.extend([{dbId: dbId, "mutationType": "DELETED"} for dbId in deltas.get_deletions()])
 
         return all_changed_items, deltas.last_cursor
+
+    def _transform_and_write_items(self, items: List[Dict[str, Any]]) -> None:
+        flattened_items = flatten_list_of_dicts(items)
+        parquet = convert_dicts_to_parquet(flattened_items)
+        self.data_lake_writer.write_data("filesystem", self.name, f"{get_current_time_for_filename()}-{self.name}.parquet", parquet)
 
     def _syncronize_from_full(self) -> None:
         raise NotImplementedError("Full syncronization is not implemented yet.")
