@@ -16,7 +16,7 @@ from functions.timesheets.queries import (
 )
 
 
-SYNCRONIZER_NAME = "timesheets"
+NAME = "timesheets_test2"
 
 logging.basicConfig(level=logging.INFO)
 
@@ -31,18 +31,18 @@ def syncronize_timesheets(myTimer: func.TimerRequest) -> None:
     api_key = os.getenv("APIKey")
     data_lake_account_name = os.getenv("DataLakeAccountName")
     data_lake_account_key = os.getenv("DataLakeAccountKey")
-    state_manager_connection_string = os.getenv("DataLakeConnectionString")
+    state_manager_connection_string = os.getenv("StateManagerConnectionString")
 
     # Initialize classes needed for syncronizing data.
     grapql_client = GraphQLClient(api_endpoint, api_key)
     data_lake_writer = DataLakeWriter(data_lake_account_name, data_lake_account_key)
     delta_fetcher = DeltaFetcher(grapql_client, GET_TIMESHEET_DELTAS)
     item_fetcher = ItemFetcher(grapql_client, GET_TIMESHEETS_FROM_DBIDS, GET_TIMESHEETS_AFTER_CURSOR)
-    state_manager = SynchronizerStateManager(state_manager_connection_string, f"{SYNCRONIZER_NAME}-")
+    state_manager = SynchronizerStateManager(state_manager_connection_string, f"{NAME}-")
 
     # Initialize the data syncronizer.
     syncronizer = DataSynchronizer(
-        SYNCRONIZER_NAME, 
+        NAME, 
         delta_fetcher,
         item_fetcher,
         data_lake_writer,
