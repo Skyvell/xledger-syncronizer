@@ -74,6 +74,7 @@ The files are written to a Datalake. When performing a full load of all the data
 </code>
 </pre>
 
+Question/thought: Maybe full load files should be named differently. Maybe syncronization or full_load should be prefixed.
 
 ## Deployment
 
