@@ -66,7 +66,10 @@ The files are written to a Datalake. When performing a full load of all the data
 <pre>
 <code>
 `20240610_11_47_40_employees.parquet`
+`20240610_15_39_09_employees.parquet`
+`20240610_15_40_22_employees.parquet`
 `20240610_11_47_34_customers.parquet`
+`20240611_13_27_39_customers.parquet`
 </code>
 </pre>
 
