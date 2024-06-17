@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2024-06-17T10:50:01.946Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="OU2_Xu88X9ZR_59DN_FE" version="24.5.4" type="device">
+  <diagram name="Page-1" id="9lf-YK-Sq75ipD2K5xcs">
+    <mxGraphModel dx="1682" dy="2472" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="EdpVYnJy28S6bwPNEekb-1" value="Azure Environment" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fontSize=20;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="1730" y="-860" width="1060" height="610" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-2" value="(1) Triggers function" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=16;" edge="1" parent="1" source="EdpVYnJy28S6bwPNEekb-3" target="EdpVYnJy28S6bwPNEekb-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-3" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Timer Trigger&lt;/font&gt;&lt;div style=&quot;font-size: 16px;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="sketch=0;aspect=fixed;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;shape=mxgraph.mscae.enterprise.triggers;fillColor=#0078D7;" vertex="1" parent="1">
+          <mxGeometry x="1820" y="-442.5" width="96.35" height="102.5" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EdpVYnJy28S6bwPNEekb-6" target="EdpVYnJy28S6bwPNEekb-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-5" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;(4) Write items to datalake&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EdpVYnJy28S6bwPNEekb-6" target="EdpVYnJy28S6bwPNEekb-12">
+          <mxGeometry x="-0.0024" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-6" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Azure Function&lt;/font&gt;" style="image;aspect=fixed;html=1;points=[[0.25,0,0,0,0],[0.5,0,0,0,0],[0.75,0,0,0,0],[1,0.2,0,0,0],[1,0.4,0,0,0],[1,0.6,0,0,0],[1,0.8,0,0,0]];align=center;fontSize=12;image=img/lib/azure2/compute/Function_Apps.svg;" vertex="1" parent="1">
+          <mxGeometry x="2180" y="-441.25" width="113.33" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-7" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;(2) Get syncronization state&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EdpVYnJy28S6bwPNEekb-8" target="EdpVYnJy28S6bwPNEekb-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-8" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;App Configuration&lt;/font&gt;" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/integration/App_Configuration.svg;" vertex="1" parent="1">
+          <mxGeometry x="2180" y="-790" width="112.94" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-9" value="X-Ledger" style="whiteSpace=wrap;strokeWidth=2;verticalAlign=top;fontSize=20;fillColor=#b0e3e6;strokeColor=#0e8088;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="2040" y="-170" width="390" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" target="EdpVYnJy28S6bwPNEekb-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2236.66" y="-90" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-11" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;(3) Fetches items&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EdpVYnJy28S6bwPNEekb-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2236.7" y="-90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-12" value="" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Data_Lake_Store.svg;" vertex="1" parent="1">
+          <mxGeometry x="2570" y="-438.32" width="120.69" height="94.13" as="geometry" />
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-13" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;(5) Update Syncronization state&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.2;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.006;entryY=0.593;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="EdpVYnJy28S6bwPNEekb-6" target="EdpVYnJy28S6bwPNEekb-8">
+          <mxGeometry x="0.1021" y="20" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2440" y="-421" />
+              <mxPoint x="2440" y="-719" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EdpVYnJy28S6bwPNEekb-14" value="" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=api" vertex="1" parent="1">
+          <mxGeometry x="2151.66" y="-90" width="166.67" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
