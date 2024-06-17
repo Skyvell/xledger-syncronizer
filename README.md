@@ -42,16 +42,6 @@ The app is developed as a function app in Azure (Figure 1). It will consist of s
 
 *Figure 1: High-level architecture showing the flow of data from timers to Azure Functions and the Data Lake. The illustration only shows one function, but the function app will have a timer and function for each type of business data.*
 
-
-Provide an overview of the architecture. Include a diagram (e.g., a flowchart or system architecture diagram) to illustrate the components and their interactions.
-
-### Diagram Description
-
-- **Timers**: Describe how timers trigger functions.
-- **Functions**: Explain what each function does.
-- **GraphQL Endpoints**: Detail the data sources.
-- **Data Lake**: Describe how data is stored.
-
 ## Getting Started
 
 ### Prerequisites
@@ -63,16 +53,26 @@ List the software and tools required to run the project. For example:
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [Terraform](https://www.terraform.io/)
 
-### Installation
 
-Provide step-by-step instructions on how to set up the project locally.
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/yourproject.git
+## Usage
 
-# Navigate to the project directory
-cd yourproject
+### Endpoint
 
-# Install dependencies
-npm install
+### GraphQL queries
+
+### File outputs
+
+## Deployment
+
+### Development
+
+### Production
+
+## Infrastructure as code
+
+## Testing
+
+## License
+
+## Contact
