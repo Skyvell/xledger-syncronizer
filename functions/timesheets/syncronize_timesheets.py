@@ -16,7 +16,7 @@ from functions.timesheets.queries import (
 )
 
 
-NAME = "timesheets_test2"
+NAME = "timesheets"
 
 logging.basicConfig(level=logging.INFO)
 
@@ -50,7 +50,6 @@ def syncronize_timesheets(myTimer: func.TimerRequest) -> None:
     )
 
     # Syncronize the data.
-    syncronizer.state_manager.initial_sync_complete = False
     if not syncronizer.state_manager.initial_sync_complete:
         syncronizer.syncronize(sync_from_scratch = True)
     else:
