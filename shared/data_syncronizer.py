@@ -33,7 +33,7 @@ class DataSynchronizer:
         deltas = self.delta_fetcher.fetch_deltas({"last": 1})
         
         # Fetch all items.
-        items = self.item_fetcher.fetch_all_items_after_cursor()
+        items = self.item_fetcher.fetch_all_items_after_cursor(first=10000)
         if not items.has_items():
             logging.info(f"No items found for {self.name}.")
             return
