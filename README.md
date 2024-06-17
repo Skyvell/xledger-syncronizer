@@ -62,7 +62,7 @@ List the software and tools required to run the project. For example:
 ### GraphQL queries
 
 ### File outputs
-The files are written to a Datalake. When performing a full load of all the data, all data is stored in one file. Next time when data is syncronized, changes will be in a new file. Files are named in a standardised nammed. Here are a few examples:
+The files are written to a Datalake. When performing a full load of all the data, all data is written to one file. Next time when data is syncronized, changes will be in a new file. Files are named in a standardised nammed. Here are a few examples:
 <pre>
 <code>
 `20240610_11_47_40_employees.parquet`
