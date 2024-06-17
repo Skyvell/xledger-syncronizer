@@ -40,6 +40,8 @@ Briefly describe your project, its purpose, and goals. Include any relevant back
 
 ![Azure architecture](architecture/azure_architecture.svg)
 
+*Figure 1: High-level architecture showing the flow of data from timers to Azure Functions and the Data Lake.*
+
 Provide an overview of the architecture. Include a diagram (e.g., a flowchart or system architecture diagram) to illustrate the components and their interactions.
 
 ### Diagram Description
