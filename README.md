@@ -27,7 +27,7 @@
 
 ## Overview
 
-Data Ductus is migrating from Brilliant to Xledger as a business system. The data stored with Xledger is needed for internal business analytics. This app will fetch the nessesary business data from Xledger's Graphql API, and write the data to a Data Lake as .parquet files. This raw-data will be be transformed and loaded into a structure more suitable for business analytics, but that is not in the scope of this application. The scope of this application is to produce and keep the raw-data syncronized in the Datalake.
+Data Ductus is migrating from Brilliant to Xledger as a business system. The data stored with Xledger is needed for internal business analytics. This app will fetch the nessesary business data from Xledger's Graphql API, and write the data to a Datalake as .parquet files. This raw-data will be be transformed and loaded into a structure more suitable for business analytics, but that is not in the scope of this application. The scope of this application is to produce and keep the raw-data syncronized in the Datalake. The application is build on azure serverless infrastructure.
 
 ## Features
 
