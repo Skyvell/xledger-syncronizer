@@ -36,7 +36,7 @@ Data Ductus is migrating from Brilliant to Xledger as a business system. The dat
 
 ## Architecture
 
-The app is developed as a function app in Azure (Figure 1). It will consist of several Azure functions and associated triggers. Each function will be responsible for fetching and keeping a particular type of data synchronized in the Data Lake. For example, one function will be responsible for timesheets data, and another one for projects data. An App Configuration component will be used to store the state of the synchronization, since Azure functions are stateless. 
+The app is developed as a function app in Azure (Figure 1). It will consist of several Azure functions and associated triggers. Each function will be responsible for fetching and keeping a particular type of data synchronized in the Data Lake. For example, one function will be responsible for timesheets data, and another one for projects data. An App Configuration component will be used to store the state of the synchronization.
 
 ![Azure architecture](architecture/azure_architecture.svg)
 
