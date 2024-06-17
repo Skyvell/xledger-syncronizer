@@ -27,16 +27,18 @@
 
 ## Overview
 
-Data Ductus is migrating from Brilliant to Xledger as a business system. The data stored with Xledger is needed for internal business analytics. This app will fetch the nessesary business data from Xledger's Graphql API, and write the data to a Datalake as .parquet files. This raw-data will be be transformed and loaded into a structure more suitable for business analytics, but that is not in the scope of this application. The scope of this application is to produce and keep the raw-data syncronized in the Datalake. The application is built on azure serverless infrastructure.
+Data Ductus is migrating from Brilliant to Xledger as a business system. The data stored with Xledger is needed for internal business analytics. This app will fetch the nessesary business data from Xledger's Graphql API, and write the data to a Datalake as .parquet files. This raw-data will be be transformed and loaded into a structure more suitable for business analytics, but that is not in the scope of this application. The scope of this application is to produce and keep the raw-data syncronized in the Datalake. The application is built on Azure serverless infrastructure.
 
 ## Features
 
-- **Feature 1**: Description of feature 1.
-- **Feature 2**: Description of feature 2.
-- **Feature 3**: Description of feature 3.
-- **...**
+- **Timesheets**: Perform a full load of all timesheets data and keep it syncronized.
+- **Projects**: Perform a full load of all projects data and keep it syncronized.
+- **Employees**: Perform a full load of all employes data and keep it syncronized.
+- **Customers**: Perform a full load of all customers data and keep it syncronized.
 
 ## Architecture
+
+The app is developed as a function app in Azure (Figure 1). It will consist of a number of azure function and associated triggers. Each function will be responsible for fetching and keeping a particular type of data syncronized in the Datalake. E.g. one function will be responsible for timesheets data, and another one for projects data. An App Configuration component will be used to store the state of the syncronization, since azure functions are stateless. 
 
 ![Azure architecture](architecture/azure_architecture.svg)
 
