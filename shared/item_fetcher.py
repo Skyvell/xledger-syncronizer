@@ -1,6 +1,6 @@
 from shared.gql_client import GraphQLClient, PaginationQueryResult
 from shared.utils.data_transformation import add_key_value_to_dicts
-from typing import Dict, Any, Set, List, Optional
+from typing import Dict, Any, Set, List
 import logging
 
 
