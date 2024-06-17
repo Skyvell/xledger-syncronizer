@@ -50,4 +50,8 @@ def syncronize_timesheets(myTimer: func.TimerRequest) -> None:
     )
 
     # Syncronize the data.
-    syncronizer.syncronize()
+    syncronizer.state_manager.initial_sync_complete = False
+    if not syncronizer.state_manager.initial_sync_complete:
+        syncronizer.syncronize(sync_from_scratch = True)
+    else:
+        syncronizer.syncronize(sync_from_scratch = False)
