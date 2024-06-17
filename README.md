@@ -62,6 +62,13 @@ List the software and tools required to run the project. For example:
 ### GraphQL queries
 
 ### File outputs
+The files are written to a Datalake. They are named in a standardised manner:
+<pre>
+<code>
+`20240610_11_47_40_employees.parquet`
+</code>
+</pre>
+
 
 ## Deployment
 
