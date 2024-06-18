@@ -42,7 +42,73 @@ The app is developed as a function app in Azure (Figure 1). It will consist of s
 
 *Figure 1: High-level architecture showing the flow of data from timers to Azure Functions and the Data Lake. The illustration only shows one function, but the function app will have a timer and function for each type of business data.*
 
-## Getting Started
+## Adding support for new business data
+Depending on which queries are available the procedure will vary a bit. If the query has a deltas query, no custom code will need to be written.
+
+1. Go to the Xledger GraphQL API.
+2. Construct the queries needed for getting the data.
+
+GET_EMPLOYEES_FROM_DBIDS = gql("""
+    query getEmployees($first: Int, $after: String, $dbIdList: [Int64String!]) {
+        employees(
+            first: $first,
+            after: $after, 
+            filter: { 
+                dbId_in: $dbIdList
+            }
+        ) {
+            edges {
+                cursor
+                node {
+                    ## The fields you want goes here.
+                }
+            }
+            pageInfo {
+                hasNextPage
+            }
+        }
+    }
+""")
+
+GET_EMPLOYEES_AFTER_CURSOR = gql("""
+    query getEmployees($first: Int, $after: String) {
+        employees(
+            first: $first,
+            after: $after
+        ) {
+            edges {
+                cursor
+                node {
+                    ## The fields you want goes here.
+                }
+            }
+            pageInfo {
+                hasNextPage
+            }
+        }
+    }
+""")
+
+GET_EMPLOYEE_DELTAS = gql("""
+    query getEmployeeDeltas($first: Int, $last: Int, $after: String) {
+        employee_deltas(
+            first: $first,
+            last: $last,
+            after: $after
+        ) {
+            edges {
+                node {
+                    dbId
+                    mutationType
+                }
+                cursor
+            }
+            pageInfo {
+                hasNextPage
+            }
+        }
+    }
+""")
 
 ### Prerequisites
 
